@@ -1,0 +1,88 @@
+### ==============================================
+### Variables
+### ==============================================
+@host = http://localhost:8085
+@context = /api/v1/demoapirestdam235
+@base = {{host}}{{context}}
+
+### ==============================================
+### Login (guarda el token automáticamente en {{token}})
+### ==============================================
+# @name login
+POST {{base}}/auth/login
+Content-Type: application/json
+
+{
+  "user": "mmartinez@temp.com",
+  "pass": "Temp123."
+}
+
+> {%
+    client.global.set("token", response.body.token);
+%}
+
+### ==============================================
+### Listar productos (Act. 4)
+### ==============================================
+GET {{base}}/products
+Authorization: Bearer {{token}}
+
+### ==============================================
+### Obtener producto por código
+### ==============================================
+GET {{base}}/products/1
+Authorization: Bearer {{token}}
+
+### ==============================================
+### Crear producto (Act. 4)
+### ==============================================
+POST {{base}}/products
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Mochila backpack Adidas",
+  "status": true
+}
+
+### ==============================================
+### Actualizar producto (Act. 4)
+### ==============================================
+PUT {{base}}/products/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "name": "Mochila backpack Adidas PRO",
+  "status": false
+}
+
+### ==============================================
+### Eliminar producto (Act. 4)
+### ==============================================
+DELETE {{base}}/products/2
+Authorization: Bearer {{token}}
+
+### ==============================================
+### Crear cuenta de usuario (Act. 3)
+### ==============================================
+POST {{base}}/users/register
+Content-Type: application/json
+
+{
+  "name": "Ana",
+  "lastName": "Gomez",
+  "email": "agomez@temp.com",
+  "password": "Temp123."
+}
+
+### ==============================================
+### Logout (Act. 2) - invalida el token actual
+### ==============================================
+POST {{base}}/auth/logout
+Authorization: Bearer {{token}}
+
+### ==============================================
+### Listar productos SIN token (debe dar 401)
+### ==============================================
+GET {{base}}/products

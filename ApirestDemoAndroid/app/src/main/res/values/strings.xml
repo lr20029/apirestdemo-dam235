@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">ApiRest Demo</string>
+
+    <string name="login_title">Iniciar sesión</string>
+    <string name="hint_user">Usuario (correo)</string>
+    <string name="hint_pass">Contraseña</string>
+    <string name="btn_login">Ingresar</string>
+    <string name="login_loading">Autenticando…</string>
+    <string name="link_register">¿No tienes cuenta? Crear una</string>
+    <string name="btn_go_register">Crear cuenta</string>
+
+    <string name="register_title">Registrar usuario</string>
+    <string name="hint_name">Nombre</string>
+    <string name="hint_lastname">Apellido</string>
+    <string name="hint_email">Correo electrónico</string>
+    <string name="btn_register">Registrar</string>
+
+    <string name="products_title">Productos</string>
+    <string name="btn_logout">Cerrar sesión</string>
+    <string name="btn_add">＋ Agregar</string>
+    <string name="products_loading">Cargando productos…</string>
+    <string name="products_empty">No hay productos</string>
+
+    <string name="product_new_title">Nuevo producto</string>
+    <string name="product_edit_title">Editar producto</string>
+    <string name="product_active">Activo</string>
+    <string name="btn_save">Guardar</string>
+
+    <string name="hint_product_name">Nombre del producto</string>
+    <string name="delete_title">Eliminar</string>
+    <string name="delete_message">¿Eliminar este producto?</string>
+    <string name="delete_ok">Sí, eliminar</string>
+    <string name="cancel">Cancelar</string>
+</resources>

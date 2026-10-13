@@ -1,0 +1,10 @@
+# Documento de la guia (no es parte del proyecto)
+*.pdf
+
+# IDE
+.idea/
+*.iml
+
+# Sistema operativo
+.DS_Store
+Thumbs.db

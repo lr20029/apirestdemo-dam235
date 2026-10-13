@@ -1,0 +1,201 @@
+{
+	"info": {
+		"_postman_id": "d0f0a1a2-b3c4-4d5e-8f90-1a2b3c4d5e6f",
+		"name": "WS API Rest - apirestdemo",
+		"description": "Guía práctica - Creación de WS API Rest.\n\nURL base: http://localhost:8085/api/v1/demoapirestdam235\n\nPrueba: ejecuta primero POST /auth/login para que el token se guarde automáticamente en {{token}}.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "POST /auth/login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user\": \"mmartinez@temp.com\",\n    \"pass\": \"Temp123.\"\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/login",
+							"host": ["{{baseUrl}}"],
+							"path": ["auth", "login"]
+						},
+						"description": "Autentica el usuario y devuelve el Token JWT."
+					},
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var body = pm.response.json();",
+									"if (body.token) {",
+									"    pm.collectionVariables.set(\"token\", body.token);",
+									"    console.log(\"Token guardado.\");",
+									"} else {",
+									"    console.log(\"No se obtuvo token: \" + JSON.stringify(body));",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					]
+				},
+				{
+					"name": "POST /auth/logout (Act. 2)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseUrl}}/auth/logout",
+							"host": ["{{baseUrl}}"],
+							"path": ["auth", "logout"]
+						},
+						"description": "Actividad 2 (10%). Invalida el token actual (requiere Authorization: Bearer {{token}})."
+					}
+				},
+				{
+					"name": "POST /users/register (Act. 3)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Marcos\",\n    \"lastName\": \"Martinez\",\n    \"email\": \"mmartinez@temp.com\",\n    \"password\": \"Temp123.\",\n    \"active\": true\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/register",
+							"host": ["{{baseUrl}}"],
+							"path": ["users", "register"]
+						},
+						"description": "Actividad 3 (10%). Crea una nueva cuenta de usuario (endpoint público)."
+					}
+				}
+			]
+		},
+		{
+			"name": "Products (CRUD - Act. 4)",
+			"item": [
+				{
+					"name": "GET /products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/products",
+							"host": ["{{baseUrl}}"],
+							"path": ["products"]
+						},
+						"description": "Lista todos los productos (requiere token)."
+					}
+				},
+				{
+					"name": "GET /products/{code}",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/products/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["products", "1"]
+						},
+						"description": "Consulta un producto por su código."
+					}
+				},
+				{
+					"name": "POST /products (create)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Mochila backpack Adidas\",\n    \"status\": true\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/products",
+							"host": ["{{baseUrl}}"],
+							"path": ["products"]
+						},
+						"description": "Crea un nuevo producto (code es auto-generado)."
+					}
+				},
+				{
+					"name": "PUT /products/{code} (update)",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Mochila backpack Adidas PRO\",\n    \"status\": false\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/products/1",
+							"host": ["{{baseUrl}}"],
+							"path": ["products", "1"]
+						},
+						"description": "Actualiza un producto existente."
+					}
+				},
+				{
+					"name": "DELETE /products/{code}",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/products/2",
+							"host": ["{{baseUrl}}"],
+							"path": ["products", "2"]
+						},
+						"description": "Elimina un producto por su código."
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8085/api/v1/demoapirestdam235"
+		},
+		{
+			"key": "token",
+			"value": ""
+		}
+	]
+}
