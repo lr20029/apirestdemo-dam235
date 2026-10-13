@@ -4,6 +4,7 @@ import edu.sv.ues.dam235.apirestdemo.dtos.TokenDTO;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,7 +24,11 @@ import java.util.stream.Collectors;
 @Service
 public class JwtUtil {
 
-    private String secretKey = "CPqiMDqBnNEXawGoFX7g";
+    @Value("${app.jwt.secret}")
+    private String secretKey;
+
+    @Value("${app.jwt.expiration-ms}")
+    private long expirationMs;
 
     private final Set<String> invalidatedTokens = Collections.newSetFromMap(new ConcurrentHashMap<>());
 
@@ -60,13 +65,13 @@ public class JwtUtil {
     private TokenDTO createToken(Map<String, Object> claims, String userName) {
 
         TokenDTO newToken = new TokenDTO();
-        newToken.setExpireIn("1800000");
+        newToken.setExpireIn(String.valueOf(expirationMs));
 
         String token = Jwts.builder()
                 .setClaims(claims)
                 .setSubject(userName)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1800000))
+                .setExpiration(new Date(System.currentTimeMillis() + expirationMs))
                 .signWith(SignatureAlgorithm.HS256, secretKey).compact();
 
         newToken.setToken(token);

@@ -1,5 +1,6 @@
 package edu.sv.ues.dam235.apirestandroid.api;
 
+import edu.sv.ues.dam235.apirestandroid.BuildConfig;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -8,14 +9,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiClient {
 
     /*
-     * URL base para el EMULADOR de Android.
-     * 10.0.2.2 es la forma en que el emulador ve al "localhost" de la PC.
+     * URL base de la API. El valor se define en gradle.properties (propiedad BASE_URL)
+     * y queda disponible en BuildConfig.BASE_URL.
      *
-     * Si se usa un DISPOSITIVO FÍSICO, reemplazar por la IP de la PC en la red
-     * local, por ejemplo: http://192.168.1.50:8085/api/v1/demoapirestdam235/
+     * Emulador: 10.0.2.2 apunta al localhost de la PC.
+     * Dispositivo fisico: usar la IP de la PC en la red local, ej.
+     *   http://192.168.1.50:8085/api/v1/demoapirestdam235/
      */
-    public static final String BASE_URL =
-            "http://10.0.2.2:8085/api/v1/demoapirestdam235/";
+    public static final String BASE_URL = BuildConfig.BASE_URL;
 
     private static Retrofit retrofit;
 
